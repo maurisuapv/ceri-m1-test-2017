@@ -7,6 +7,9 @@ package fr.univavignon.rodeo.api;
  */
 public interface INamedObject {
 
+	
+	
+	
 	/**
 	 * Name getter.
 	 * 
