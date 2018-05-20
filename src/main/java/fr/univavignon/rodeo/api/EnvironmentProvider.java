@@ -1,5 +1,6 @@
 package fr.univavignon.rodeo.api;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,50 +22,60 @@ public class EnvironmentProvider implements IEnvironmentProvider {
 	public List<String> getAvailableEnvironments() {
 	
 		List<String> listeEnvironnemets = new ArrayList<String>();
-		
-		
-		Reader in = null;
-		try {
-			in = new FileReader("Rodeo Stampede Animals - Animal List.csv");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		Iterable<CSVRecord> records = null;
-		try {
-			records = CSVFormat.EXCEL.parse(in);
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		for (CSVRecord record : records) {
-			
-			
-			
-			
-			for(int i=0; i<record.size(); i++) {
-		
-				if(!record.get(i+1).isEmpty() && record.get(i+2).isEmpty()) {
-					
-					listeEnvironnemets.add(record.get(i));
-					
-					
-				} else if(record.get(i+1).isEmpty()) {
-					
-					listeEnvironnemets.add(record.get(i));
-					
-				}
-				
-			}
-		    
-		    
-		    
-		    
-		}
-		
+
+		 String csvFile = "Rodeo Stampede Animals - Animal List.csv";
+		 
+	        BufferedReader br = null;
+	        String line = "";
+	        String cvsSplitBy = ",";
+
+	        long lineNb = 0;
+	        
+	        try {
+
+	            br = new BufferedReader(new FileReader(csvFile));
+	            while ((line = br.readLine()) != null) {
+
+	                // use comma as separator
+	                String[] parssingLine = line.split(cvsSplitBy);
+
+                	//System.out.println("Line " + line + " length " + parssingLine.length);
+
+
+	                if(lineNb == 0 && parssingLine[0].toUpperCase().equals(parssingLine[0]))  {
+	                	
+	                	System.out.println("If 1 ajoute " + parssingLine[0]);
+						listeEnvironnemets.add(parssingLine[0]);
+
+	                	
+	                	
+	                } else if(parssingLine.length == 1 && parssingLine[0].toUpperCase().equals(parssingLine[0])) {
+	                	System.out.println("If 2 ajoute " + parssingLine[0]);
+
+						listeEnvironnemets.add(parssingLine[0]);
+
+	                }
+	                
+	                lineNb++;
+	            }
+
+	        } catch (FileNotFoundException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	        	
+	        System.out.println("Line nb " + lineNb);
+	        
+	            e.printStackTrace();
+	        } finally {
+	            if (br != null) {
+	                try {
+	                    br.close();
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+
 		return listeEnvironnemets;
 		
 	}

@@ -25,9 +25,18 @@ public class IEnvironmentProviderTest {
 
 	 when(environmentProvider.getAvailableEnvironments()).thenReturn(listeEnvironnments);
 	 
-	 when(environmentProvider.getEnvironment("Environment1")).thenReturn(IEnvironmentTest.createMock());
 	 
+	 IEnvironment env1 = IEnvironmentTest.createMock();
+	 
+	 when(environmentProvider.getEnvironment("Environment1")).thenReturn(env1);
 
+	 IEnvironment env2 = IEnvironmentTest.createMock();
+
+	 when(environmentProvider.getEnvironment("Environment2")).thenReturn(env2);
+
+	 IEnvironment env3 = IEnvironmentTest.createMock();
+
+	 when(environmentProvider.getEnvironment("Environment3")).thenReturn(env3);
 	 
 	 return environmentProvider;
 	

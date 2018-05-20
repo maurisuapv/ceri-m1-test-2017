@@ -23,5 +23,7 @@ public interface ISpecie extends INamedObject {
 	 * @return List of available animal for this specie.
 	 */
 	List<IAnimal> getAnimals();
+	
+	 SpecieLevel getSpecieLevel();
 
 }
